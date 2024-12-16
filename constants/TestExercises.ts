@@ -11,7 +11,8 @@ export const TestExercises: Exercise[] = [
           { reps: 8, weight: 55 },
           { reps: 6, weight: 60 },
         ],
-        maxPerfomance: 65 // 1RM basierend auf 10x50kg
+        maxPerfomance: 65,
+        id: 1 // 1RM basierend auf 10x50kg
       },
       {
         time: new Date("2024-12-08T10:30:00"),
@@ -20,7 +21,8 @@ export const TestExercises: Exercise[] = [
           { reps: 8, weight: 50 },
           { reps: 5, weight: 62.5 },
         ],
-        maxPerfomance: 67.5 // 1RM basierend auf 5x62.5kg
+        maxPerfomance: 67.5,
+        id: 2 // 1RM basierend auf 5x62.5kg
       },
     ],
     performanceType: PerformanceType.RM
@@ -37,7 +39,8 @@ export const TestExercises: Exercise[] = [
           { reps: 5, weight: 0 },
           { reps: 4, weight: 0 },
         ],
-        maxPerfomance: 8 // PR: Höchste Wiederholungszahl im besten Satz
+        maxPerfomance: 8,
+        id: 1 // PR: Höchste Wiederholungszahl im besten Satz
       },
       {
         time: new Date("2024-12-09T08:45:00"),
@@ -46,7 +49,8 @@ export const TestExercises: Exercise[] = [
           { reps: 7, weight: 0 },
           { reps: 6, weight: 0 },
         ],
-        maxPerfomance: 10 // PR
+        maxPerfomance: 10,
+        id: 2 // PR
       },
     ],
     performanceType: PerformanceType.PR
@@ -61,7 +65,8 @@ export const TestExercises: Exercise[] = [
           { reps: 10, weight: 70 },
           { reps: 8, weight: 80 },
         ],
-        maxPerfomance: 95 // 1RM basierend auf 8x80kg
+        maxPerfomance: 95,
+        id: 1 // 1RM basierend auf 8x80kg
       },
       {
         time: new Date("2024-12-10T10:15:00"),
@@ -70,7 +75,8 @@ export const TestExercises: Exercise[] = [
           { reps: 8, weight: 75 },
           { reps: 6, weight: 85 },
         ],
-        maxPerfomance: 100 // 1RM basierend auf 6x85kg
+        maxPerfomance: 100,
+        id: 2 // 1RM basierend auf 6x85kg
       },
     ],
     performanceType: PerformanceType.RM
@@ -85,7 +91,8 @@ export const TestExercises: Exercise[] = [
           { reps: 12, weight: 12.5 },
           { reps: 10, weight: 15 },
         ],
-        maxPerfomance: 17.5 // 1RM basierend auf 10x15kg
+        maxPerfomance: 17.5,
+        id: 1 // 1RM basierend auf 10x15kg
       },
       {
         time: new Date("2024-12-11T13:30:00"),
@@ -94,7 +101,8 @@ export const TestExercises: Exercise[] = [
           { reps: 10, weight: 15 },
           { reps: 8, weight: 17.5 },
         ],
-        maxPerfomance: 20 // 1RM basierend auf 8x17.5kg
+        maxPerfomance: 20,
+        id: 2 // 1RM basierend auf 8x17.5kg
       },
     ],
     performanceType: PerformanceType.RM
@@ -109,7 +117,8 @@ export const TestExercises: Exercise[] = [
           { reps: 18, weight: 0 },
           { reps: 15, weight: 0 },
         ],
-        maxPerfomance: 20 // PR: Höchste Wiederholungszahl im besten Satz
+        maxPerfomance: 20,
+        id: 1 // PR: Höchste Wiederholungszahl im besten Satz
       },
       {
         time: new Date("2024-12-12T15:30:00"),
@@ -118,7 +127,8 @@ export const TestExercises: Exercise[] = [
           { reps: 22, weight: 0 },
           { reps: 20, weight: 0 },
         ],
-        maxPerfomance: 25 // PR
+        maxPerfomance: 25,
+        id: 2 // PR
       },
     ],
     performanceType: PerformanceType.PR

@@ -14,8 +14,9 @@ const exerciseScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titleText}>Alle Übungen</Text>
-
+      <View style={styles.customHeader}>
+        <Text style={styles.titleText}>Alle Übungen</Text>
+      </View>
       <View style={styles.cardsView}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {TestExercises.map((exercise, index) => (
@@ -43,6 +44,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 20,
   },
+  customHeader: {
+    backgroundColor: 'white',
+    borderColor: 'none',
+    borderBottomColor: 'rgba(150, 150, 150, 0.34)',
+    borderBottomWidth: 1,
+    marginBottom: 4
+  },
   cardsView: {
     flex: 1, // Lässt die ScrollView den verbleibenden Platz einnehmen
     paddingHorizontal: 20,
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    marginRight: 10
+    marginRight: 10,
   }
 });
 

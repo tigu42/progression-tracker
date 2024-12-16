@@ -10,7 +10,8 @@ import { Activity } from '@/constants/Activity'
 import FloatingAddButton from '@/components/util/FloatingAddButton'
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
-
+import { router } from 'expo-router'
+import { routeToScreen } from 'expo-router/build/useScreens'
 
 const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
   // Transformiere die Exercises in Activities
@@ -28,10 +29,11 @@ const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
 
 const ActivityScreen = () => {
   const activities = mapExercisesToActivities(TestExercises); // Deine Logik für Aktivitäten
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titleText}>Alle Trainings</Text>
+      <View style={styles.customHeader}>
+        <Text style={styles.titleText}>Alle Trainings</Text>
+      </View>
 
       <View style={styles.cardsView}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -56,6 +58,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 20,
+  },
+  customHeader: {
+    backgroundColor: 'white',
+    borderColor: 'none',
+    borderBottomColor: 'rgba(150, 150, 150, 0.34)',
+    borderBottomWidth: 1,
+    marginBottom: 4
   },
   cardsView: {
     flex: 1, // Lässt die ScrollView den verbleibenden Platz einnehmen

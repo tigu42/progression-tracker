@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { act } from 'react'
 import { ExerciseTraining, PerformanceType } from '@/constants/Exercise';
 import { Activity } from '@/constants/Activity';
 import Spacing from '../util/Spacing';
-
+import { router, Router } from 'expo-router';
+import { useNavigation, ParamListBase,  NavigationProp } from '@react-navigation/native';
 interface ActivityCardProps {
   activity: Activity
 }
@@ -22,6 +23,13 @@ const formattedDate: (d: Date) => string = (date: Date) => {
 }
 
 const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
+
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+  const handlePress = (activity: Activity) => {
+    navigation.navigate("screens/editActivityScreen", {activity}); // Übergibt die Aktivität als Param
+  };
+
     return (
       <Pressable 
         style={({ pressed }) => [
@@ -29,7 +37,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
           pressed && { opacity: 0.8 } // Feedback beim Drücken
         ]}
         onPress={() => {
-          console.log(activity);
+          handlePress(activity)
         }}
       >
         <View style={styles.layoutView}>

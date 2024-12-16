@@ -5,6 +5,7 @@ import { safelyDecodeURIComponent } from 'expo-router/build/fork/getStateFromPat
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Spacing from '../util/Spacing';
+import CustomButton from '../util/CustomButton';
 
 const getPR = (exercise: Exercise): number => {
   return exercise.trainings.reduce((highest, training) => 
@@ -23,17 +24,22 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
     <View style={styles.outerView}>
       <View style={styles.leftView}>
         <Text style={styles.nameText}>{exercise.name}</Text>
-        <Button title='Trainieren'></Button>
+        <View style={styles.trainButton}>
+          <CustomButton style={styles.trainButton} onPress={() => {console.log("train")}}>
+            <Text>Trainieren</Text>
+          </CustomButton>
+
+        </View>
       </View>
       <View style={styles.rightView}>
         <View>
           <Text style={styles.prText}>{getPR(exercise)}{exercise.performanceType === PerformanceType.RM ? 'kg 1RM' : 'PR'}</Text>
           <Text style={styles.trainedText}>{exercise.trainings.length} mal trainiert</Text>
         </View>
-        <Spacing marginTop={29}></Spacing>
+        <Spacing marginTop={20}></Spacing>
         <View style={styles.iconsView}>
-          <MaterialIcons name="timeline" size={24} color="black" />
-          <MaterialCommunityIcons name="pencil-box-outline" size={24} color="black" />
+          <MaterialIcons name="timeline" size={28} color="black" />
+          <MaterialCommunityIcons name="pencil-box-outline" size={28} color="black" />
         </View>
       </View>
     </View>
@@ -62,16 +68,28 @@ const styles = StyleSheet.create({
     },
     iconsView: {
         flexDirection: 'row', // Icons nebeneinander anordnen
-        gap: 10, // Abstand zwischen den Icons
+        gap: 20, // Abstand zwischen den Icons
     },
     prText: {
-        textAlign: 'right'
+        textAlign: 'right',
+        fontSize: 20,
+        marginBottom: 3
     },
     trainedText: {
-        textAlign: 'right'
+        textAlign: 'right',
+        fontSize: 16,
+        color: 'rgb(95, 95, 95)'
     },
     nameText: {
-
+      fontWeight: '600',
+      fontSize: 17
+    },
+    trainButton: {
+      height: 35,
+      borderRadius: 8,
+      display: 'flex',
+      justifyContent: 'center',
+      width: '80%'
     }
 })
 

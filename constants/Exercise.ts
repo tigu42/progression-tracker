@@ -11,7 +11,8 @@ export interface TrainingSet {
 export interface ExerciseTraining {
     time: Date,
     sets: TrainingSet[],
-    maxPerfomance: number
+    maxPerfomance: number,
+    id: number
 }
 
 export interface Exercise {
