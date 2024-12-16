@@ -26,14 +26,16 @@ export const TestExercises: Exercise[] = [
     performanceType: PerformanceType.RM
   },
   {
-    name: "Klimmzüge",
+    name: "Klimmzüge breiter Griff neutral",
     trainings: [
       {
         time: new Date("2024-12-02T09:00:00"),
         sets: [
           { reps: 8, weight: 0 },
+          { reps: 7, weight: 0 },
           { reps: 6, weight: 0 },
           { reps: 5, weight: 0 },
+          { reps: 4, weight: 0 },
         ],
         maxPerfomance: 8 // PR: Höchste Wiederholungszahl im besten Satz
       },
