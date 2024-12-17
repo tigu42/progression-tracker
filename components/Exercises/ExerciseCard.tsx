@@ -26,7 +26,9 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
         <Text style={styles.nameText}>{exercise.name}</Text>
         <View style={styles.trainButton}>
           <CustomButton style={styles.trainButton} onPress={() => {console.log("train")}}>
-            <Text>Trainieren</Text>
+            <View style={styles.trainButtonView}>
+              <Text style={styles.trainButtonText}>Trainieren</Text>
+            </View>
           </CustomButton>
 
         </View>
@@ -85,11 +87,20 @@ const styles = StyleSheet.create({
       fontSize: 17
     },
     trainButton: {
-      height: 35,
       borderRadius: 8,
       display: 'flex',
       justifyContent: 'center',
-      width: '80%'
+      width: '80%',
+    },
+    trainButtonView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    trainButtonText: {
+      color: 'white',
+      fontWeight: '600',
+      fontSize: 15
     }
 })
 
