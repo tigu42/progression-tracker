@@ -3,17 +3,6 @@ import { StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const data = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
-];
-
 
 interface CustomDropdownProps {
     onSelect: (value: string) => void,
@@ -54,7 +43,6 @@ export default CustomDropdown;
 
 const styles = StyleSheet.create({
   dropdown: {
-    margin: 16,
     height: 50,
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
@@ -63,10 +51,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 20,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: 20,
   },
   iconStyle: {
     width: 20,

@@ -34,12 +34,9 @@ const SetsList = ({sets, onChange} : SetsListProps) => {
 
   return (
     <View>
-        <Text>Sätze</Text>
-        <ScrollView>
-            {sets.map((set, index) => (
-                <TrainingSetInput key={index} set={set} index={index} onChange={handleSetChange}></TrainingSetInput>
-            ))}
-        </ScrollView>
+        {sets.map((set, index) => (
+            <TrainingSetInput key={index} set={set} index={index} onChange={handleSetChange}></TrainingSetInput>
+        ))}
     </View>
   )
 }
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
     },
     leftInput: {
         height: 40,
-        margin: 12,
+        marginRight: 12,
         borderWidth: 1,
         padding: 10,
         borderRadius: 6,
@@ -105,11 +102,12 @@ const styles = StyleSheet.create({
     removeButton: {
         flex: 1,
         borderRadius: 10,
-        marginRight: 10,
         marginLeft: 10
     },
     label: {
         fontSize: 18
+    },
+    scrollView: {
     }
 })
 
