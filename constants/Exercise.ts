@@ -12,7 +12,7 @@ export interface ExerciseTraining {
     time: Date,
     sets: TrainingSet[],
     maxPerfomance: number,
-    id: number
+    id: string
 }
 
 export interface Exercise {

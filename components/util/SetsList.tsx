@@ -22,7 +22,9 @@ const SetsList = ({sets, onChange} : SetsListProps) => {
     let newSets : TrainingSet[] = [];
     for (let i = 0; i < sets.length; i++) {
         if (i === index) {
-            newSets.push(set)
+            if (set.weight !== -1) {
+                newSets.push(set)
+            }
         }
             
         else {
@@ -48,11 +50,13 @@ const TrainingSetInput = ({set, index, onChange}: {set: TrainingSet, index: numb
 
     const onRepsChange = (reps: string) => {
         let repsCount = Number(reps);
+        if (Number.isNaN(repsCount)) repsCount = 0;
         setReps(repsCount);
         onChange({reps: repsCount, weight: weight}, index)
     }
     const onWeightChange = (weight: string) => {
         let weightCount = Number(weight);
+        if (Number.isNaN(weightCount)) weightCount = 0;
         setWeight(weightCount);
         onChange({reps: reps, weight: weightCount}, index)
     }
@@ -65,7 +69,7 @@ const TrainingSetInput = ({set, index, onChange}: {set: TrainingSet, index: numb
             <View style={styles.horizontalSpacing}></View>
             <TextInput editable value={weight.toString()} onChangeText={onWeightChange} style={styles.rightInput}></TextInput>
             <Text style={styles.label}>kg</Text>
-            <CustomButton style={styles.removeButton} onPress={() => { console.log("entfernen")}}>Entfernen</CustomButton>
+            <CustomButton style={styles.removeButton} onPress={() => { onChange({reps: -1, weight: -1}, index)}}>Entfernen</CustomButton>
         </View>
     </View>
     )

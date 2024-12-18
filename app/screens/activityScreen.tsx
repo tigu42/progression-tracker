@@ -12,6 +12,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router'
 import { routeToScreen } from 'expo-router/build/useScreens'
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
 const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
   // Transformiere die Exercises in Activities
@@ -29,6 +30,7 @@ const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
 
 const ActivityScreen = () => {
   const activities = mapExercisesToActivities(TestExercises); // Deine Logik für Aktivitäten
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.customHeader}>
@@ -42,7 +44,7 @@ const ActivityScreen = () => {
           ))}
         </ScrollView>
       </View>
-      <FloatingAddButton onPress={() => console.log("floating")}>
+      <FloatingAddButton onPress={() => navigation.navigate("screens/editActivityScreen", {})}>
         <AntDesign name="plus" size={28} color="white" />
       </FloatingAddButton>
     </SafeAreaView>
