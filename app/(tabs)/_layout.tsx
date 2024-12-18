@@ -6,10 +6,10 @@ import { MaterialCommunityIcons, Entypo, Feather } from '@expo/vector-icons'
 const TabsLayout = () => {
   return (
     <Tabs screenOptions={{headerShown: false, tabBarActiveTintColor: Colors.primary}}>
-        <Tabs.Screen name="activityStackNavigator" options={{tabBarLabel: "Activities", tabBarIcon: ({color}) => (
+        <Tabs.Screen name="activityStackNavigator" options={{tabBarLabel: "Aktivitäten", tabBarIcon: ({color}) => (
           <Feather name="clock" size={24} color="black" />
         )}}/>
-        <Tabs.Screen name="exerciseScreen" options={{tabBarLabel: "Exercises", tabBarIcon: ({color}) => (
+        <Tabs.Screen name="exerciseStackNavigator" options={{tabBarLabel: "Übungen", tabBarIcon: ({color}) => (
           <MaterialCommunityIcons name="dumbbell" size={24} color="black" />
         )}}/>
     </Tabs>

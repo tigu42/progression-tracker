@@ -43,9 +43,9 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
         <View style={styles.layoutView}>
           <View style={styles.leftView}>
             <Text style={styles.nameText}>{activity.exerciseName}</Text>
-            <Spacing marginTop={10} />
+            <Spacing marginTop={30} />
             {activity.training.sets.map((set, index) => (
-              <Text key={index}>
+              <Text style={styles.setsText} key={index}>
                 {set.reps} {activity.performanceType === PerformanceType.RM ? `x ${set.weight} kg` : "Reps"}
               </Text>
             ))}
@@ -55,7 +55,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
             <Text style={styles.dateText}>
               {formattedDate(activity.training.time)}
             </Text>
-            <Spacing marginTop={10} />
+            <Spacing marginTop={30} />
             <Text style={styles.prText}>
               {activity.training.maxPerfomance} {activity.performanceType === PerformanceType.RM ? "kg" : "Reps"}{" "}
               {activity.performanceType.toString()}
@@ -73,7 +73,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 10,
         boxShadow:" rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+        //backgroundColor: 'rgb(144, 248, 255)',
         backgroundColor: 'rgb(144, 218, 255)',
+
     },
     leftView: {
         display: 'flex',
@@ -93,15 +95,20 @@ const styles = StyleSheet.create({
     },
     prText: {
         textAlign: 'right',
-        fontSize: 20,
+        fontSize: 22,
     },
     dateText: {
         textAlign: 'right',
-        fontSize: 12
+        fontSize: 14,
+        color: 'rgb(70, 70, 70)'
     },
     nameText: {
-        fontSize: 17,
-        fontWeight: 'bold'
+        fontSize: 19,
+        fontWeight: 'bold',
+    },
+    setsText: {
+      color: 'rgb(70, 70, 70)',
+      fontSize: 16
     }
 
 })

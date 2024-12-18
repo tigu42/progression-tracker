@@ -8,9 +8,11 @@ import { Exercise, PerformanceType, TrainingSet } from '@/constants/Exercise';
 import { useState } from 'react';
 import SetsList from '@/components/util/SetsList';
 import CustomButton from '@/components/util/CustomButton';
-import { calculatePr } from '@/util/prCalculator';
+//import { calculatePr } from '@/util/prCalculator';
+const calculatePr = (a: any, b: any) => 5
 import Feather from '@expo/vector-icons/Feather';
 import Entypo from '@expo/vector-icons/Entypo';
+import 'react-native-get-random-values'
 import { v4 as uuidv4 } from 'uuid';
 
 const createDropDownData = (exercises: Exercise[]) : {label: string, value: string}[] => {
@@ -43,9 +45,9 @@ const EditActivityScreen = ({route}: any) => {
       <ScrollView style={styles.outerView} showsVerticalScrollIndicator={false}>
         <Text style={styles.chooseText}>Übung wählen {exerciseName}</Text>
         <CustomDropdown data={dropDownData} onSelect={(name: string) => {setExerciseName(name); onSetsChange(setsArray, performanceTypeFromName(name, TestExercises), setSetsArray, setPr)}} initialData={exerciseName}></CustomDropdown>
-        {/* {setsArray.map((set, index) => (
+         {setsArray.map((set, index) => (
                 <Text key={index}>{set.reps} x {set.weight}kg</Text>
-        ))} */}
+        ))} 
         <Text style={styles.chooseText}>Sätze</Text>
         <SetsList sets={setsArray} onChange={(sets: TrainingSet[]) => {onSetsChange(sets, performanceType, setSetsArray, setPr)}}></SetsList>
         

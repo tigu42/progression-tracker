@@ -6,10 +6,12 @@ import ExerciseCard from '@/components/Exercises/ExerciseCard'
 import { TestExercises } from '@/constants/TestExercises'
 import { Exercise } from '@/constants/Exercise'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
 
 
-const exerciseScreen = () => {
+const ExerciseScreen = () => {
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
   
 
   return (
@@ -24,7 +26,7 @@ const exerciseScreen = () => {
           ))}
         </ScrollView>
       </View>
-      <FloatingAddButton onPress={() => console.log("floating")}>
+      <FloatingAddButton onPress={() => navigation.navigate("screens/editExerciseScreen", {})}>
         <View style={styles.buttonView}>
           <Text style={styles.buttonText}>Neue Übung</Text>
           <AntDesign name="plus" size={28} color="white" />
@@ -37,6 +39,7 @@ const exerciseScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white'
   },
   titleText: {
     fontSize: 26,
@@ -78,4 +81,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default exerciseScreen;
+export default ExerciseScreen;

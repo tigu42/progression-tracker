@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, Button, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import { Exercise, PerformanceType } from '@/constants/Exercise'
 import { safelyDecodeURIComponent } from 'expo-router/build/fork/getStateFromPath-forks'
@@ -6,7 +6,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Spacing from '../util/Spacing';
 import CustomButton from '../util/CustomButton';
-
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 const getPR = (exercise: Exercise): number => {
   return exercise.trainings.reduce((highest, training) => 
     Math.max(highest, training.maxPerfomance), 0
@@ -18,6 +18,7 @@ interface ExerciseCardProps {
 }
 
 const ExerciseCard = ({exercise}: ExerciseCardProps) => {
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 
   return (
@@ -41,7 +42,9 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
         <Spacing marginTop={20}></Spacing>
         <View style={styles.iconsView}>
           <MaterialIcons name="timeline" size={28} color="black" />
-          <MaterialCommunityIcons name="pencil-box-outline" size={28} color="black" />
+          <Pressable onPress={() => navigation.navigate("screens/editExerciseScreen", {exercise})}>
+            <MaterialCommunityIcons name="pencil-box-outline" size={28} color="black" />
+          </Pressable>
         </View>
       </View>
     </View>
