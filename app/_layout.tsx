@@ -3,6 +3,7 @@ import React from 'react'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { useRouter } from 'expo-router'
+import { ExerciseProvider } from '@/persistency/ExerciseContext'
 const RootLayout = () => {
     const router = useRouter();
 
@@ -11,10 +12,12 @@ const RootLayout = () => {
         <StatusBar style='dark'>
 
         </StatusBar>
-        <Stack initialRouteName='(tabs)'>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
-            <Stack.Screen name="index" options={{ headerShown: false}}/>
-        </Stack>
+        <ExerciseProvider>
+          <Stack initialRouteName='(tabs)'>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
+              <Stack.Screen name="index" options={{ headerShown: false}}/>
+          </Stack>
+        </ExerciseProvider>
     </>
   )
 }

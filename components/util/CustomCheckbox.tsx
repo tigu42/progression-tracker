@@ -6,10 +6,11 @@ interface CustomCheckboxProps {
   onChange: (value: boolean) => void; // Callback-Funktion bei Statusänderung
   viewStyle?: ViewStyle; // Stil für die äußere View
   checkboxStyle?: ViewStyle; // Stil für den "Slider" (die Checkbox)
+  initialValue?: boolean;
 }
 
-const CustomCheckbox = ({ viewStyle, checkboxStyle, onChange }: CustomCheckboxProps) => {
-  const [isChecked, setIsChecked] = useState(false); // Lokaler State für Checkbox-Status
+const CustomCheckbox = ({ viewStyle, checkboxStyle, onChange, initialValue }: CustomCheckboxProps) => {
+  const [isChecked, setIsChecked] = useState(initialValue !== null ? initialValue : false); // Lokaler State für Checkbox-Status
 
   const handlePress = () => {
     const newValue = !isChecked; // Umschalten des Wertes

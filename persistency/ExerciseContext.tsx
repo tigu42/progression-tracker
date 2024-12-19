@@ -6,6 +6,7 @@ interface ExerciseContextType {
     exercises: Exercise[];
     addExercise: (exercise: Exercise) => void;
     deleteExercise: (name: string) => void;
+    editExercise: (name: string, newExercise: Exercise) => void;
 }
 
 const ExerciseContext = createContext<ExerciseContextType | undefined>(undefined);
@@ -21,8 +22,20 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
         setExercises((prev) => prev.filter((exercise) => exercise.name !== name));
     };
 
+    const editExercise = (oldName: string, newExercise: Exercise) => {
+        let toSave: Exercise[] = []
+        for (let i = 0; i < exercises.length; i++) {
+            const name = exercises[i].name;
+            if (name === oldName) {
+                toSave.push(newExercise);
+            }
+            else toSave.push(exercises[i]);
+        }
+        setExercises(toSave);
+    }
+
     return (
-        <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise }}>
+        <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise, editExercise }}>
             {children}
         </ExerciseContext.Provider>
     );

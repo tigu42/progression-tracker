@@ -7,11 +7,13 @@ import { TestExercises } from '@/constants/TestExercises'
 import { Exercise } from '@/constants/Exercise'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
+import { useExercise } from '@/persistency/ExerciseContext'
 
 
 
 const ExerciseScreen = () => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const {exercises} = useExercise();
   
 
   return (
@@ -21,7 +23,7 @@ const ExerciseScreen = () => {
       </View>
       <View style={styles.cardsView}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {TestExercises.map((exercise, index) => (
+          {exercises.map((exercise, index) => (
             <ExerciseCard key={index} exercise={exercise} />
           ))}
         </ScrollView>

@@ -13,6 +13,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router'
 import { routeToScreen } from 'expo-router/build/useScreens'
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
+import { useExercise } from '@/persistency/ExerciseContext'
 
 const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
   // Transformiere die Exercises in Activities
@@ -29,7 +30,9 @@ const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
 };
 
 const ActivityScreen = () => {
-  const activities = mapExercisesToActivities(TestExercises); // Deine Logik für Aktivitäten
+  const {exercises} = useExercise();
+  
+  const activities = mapExercisesToActivities(exercises); // Deine Logik für Aktivitäten
     const navigation: NavigationProp<ParamListBase> = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
