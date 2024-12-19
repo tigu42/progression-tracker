@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Pressable, StyleSheet, ViewStyle } from "react-native";
 
 interface CustomButtonProps {
-  children: React.ReactNode; // Der Inhalt des Buttons
+  children?: React.ReactNode; // Der Inhalt des Buttons
   onPress: () => void; // Die Funktion, die bei einem Tap aufgerufen wird
   style?: ViewStyle; // Optionale zusätzliche Stile
 }
