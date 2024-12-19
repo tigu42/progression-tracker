@@ -77,7 +77,6 @@ const TrainingSetInput = ({set, index, onChange}: {set: TrainingSet, index: numb
                     <Feather name="x" size={24} color="white" />
                 </View>
             </CustomButton>
-            <Text>{index}</Text>
         </View>
     </View>
     )

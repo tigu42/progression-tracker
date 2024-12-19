@@ -13,6 +13,8 @@ import Feather from '@expo/vector-icons/Feather';
 import Entypo from '@expo/vector-icons/Entypo';
 import 'react-native-get-random-values'
 import { v4 as uuidv4 } from 'uuid';
+import { useExercise } from '@/persistency/ExerciseContext';
+import { useNavigation } from '@react-navigation/native';
 
 const createDropDownData = (exercises: Exercise[]) : {label: string, value: string}[] => {
   return exercises.map((exercise: Exercise) => ({label: exercise.name, value: exercise.name}))
@@ -31,22 +33,39 @@ const performanceTypeFromName = (exerciseName: string, exercises: Exercise[]): P
 }
 
 const EditActivityScreen = ({route}: any) => {
+
+  const {addExerciseTraining, editExerciseTraining, exercises} = useExercise();
+  const navigation = useNavigation();
+  
+
   const activity: Activity | null = route?.params?.activity || null;
-  const dropDownData = createDropDownData(TestExercises);
+  const dropDownData = createDropDownData(exercises);
 
   const trainingId : string = activity !== null ? activity.training.id : uuidv4();
   const [exerciseName, setExerciseName] = useState(activity !== null ? activity.exerciseName : TestExercises[0].name);
   const [setsArray, setSetsArray] = useState(activity !== null ? activity.training.sets : [])
   const [pr, setPr] = useState(activity !== null ? calculatePr(activity.training.sets, activity.performanceType) : 0)
   const performanceType: PerformanceType = performanceTypeFromName(exerciseName, TestExercises);
+
+
+  const onAddButtonPress = () => {
+    if (activity === null) {
+      addExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date(), maxPerfomance: pr})
+    }
+    else {
+      editExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date(), maxPerfomance: pr});
+    }
+    navigation.goBack();
+  }
+
   return (
     <SafeAreaView style={styles.safeView}>
       <ScrollView style={styles.outerView} showsVerticalScrollIndicator={false}>
-        <Text style={styles.chooseText}>Übung wählen {exerciseName}</Text>
+        <Text style={styles.chooseText}>Übung wählen</Text>
         <CustomDropdown data={dropDownData} onSelect={(name: string) => {setExerciseName(name); onSetsChange(setsArray, performanceTypeFromName(name, TestExercises), setSetsArray, setPr)}} initialData={exerciseName}></CustomDropdown>
-         {setsArray.map((set, index) => (
+         {/* {setsArray.map((set, index) => (
                 <Text key={index}>{set.reps} x {set.weight}kg</Text>
-        ))} 
+        ))}  */}
         <Text style={styles.chooseText}>Sätze</Text>
         <SetsList sets={setsArray} onChange={(sets: TrainingSet[]) => {onSetsChange(sets, performanceType, setSetsArray, setPr)}}></SetsList>
         
@@ -68,10 +87,7 @@ const EditActivityScreen = ({route}: any) => {
             
           </CustomButton>
           <CustomButton 
-            onPress={() => { 
-              const newSet = { reps: 0, weight: 0 };
-              setSetsArray([...setsArray, newSet]);
-            }}
+            onPress={onAddButtonPress}
             style={styles.saveButton}
           >
             <Text>

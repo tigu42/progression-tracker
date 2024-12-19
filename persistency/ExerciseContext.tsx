@@ -1,12 +1,15 @@
 import { createContext, useContext, useState } from "react";
 import { TestExercises } from "@/constants/TestExercises";
-import { Exercise } from "@/constants/Exercise";
+import { Exercise, ExerciseTraining, TrainingSet } from "@/constants/Exercise";
+import { Activity } from "@/constants/Activity";
 
 interface ExerciseContextType {
     exercises: Exercise[];
     addExercise: (exercise: Exercise) => void;
     deleteExercise: (name: string) => void;
     editExercise: (name: string, newExercise: Exercise) => void;
+    addExerciseTraining: (exerciseName: string, training : ExerciseTraining) => void;
+    editExerciseTraining: (exerciseName: string, training : ExerciseTraining) => void;
 }
 
 const ExerciseContext = createContext<ExerciseContextType | undefined>(undefined);
@@ -34,8 +37,34 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
         setExercises(toSave);
     }
 
+    const addExerciseTraining = (exerciseName: string, training : ExerciseTraining) => {
+        let toSave: Exercise[] = []
+        for (let i = 0; i < exercises.length; i++) {
+            const name = exercises[i].name;
+            if (name === exerciseName) {
+                exercises[i].trainings.push(training)
+            }
+            toSave.push(exercises[i]);
+        }
+        setExercises(toSave)
+    }
+
+    const editExerciseTraining = (exerciseName: string, training : ExerciseTraining) => {
+        let toSave: Exercise[] = []
+        for (let i = 0; i < exercises.length; i++) {
+            const name = exercises[i].name;
+            if (name === exerciseName) {
+                for (let j = 0; j < exercises[i].trainings.length; j++) {
+                    if (exercises[i].trainings[j].id === training.id) exercises[i].trainings[j] = training;
+                }
+            }
+            toSave.push(exercises[i]);
+        }
+        setExercises(toSave)
+    }
+
     return (
-        <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise, editExercise }}>
+        <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise, editExercise, addExerciseTraining, editExerciseTraining }}>
             {children}
         </ExerciseContext.Provider>
     );
