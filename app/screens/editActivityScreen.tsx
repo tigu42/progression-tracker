@@ -8,8 +8,7 @@ import { Exercise, PerformanceType, TrainingSet } from '@/constants/Exercise';
 import { useState } from 'react';
 import SetsList from '@/components/util/SetsList';
 import CustomButton from '@/components/util/CustomButton';
-//import { calculatePr } from '@/util/prCalculator';
-const calculatePr = (a: any, b: any) => 5
+import { calculatePr } from '@/util/prCalculator';
 import Feather from '@expo/vector-icons/Feather';
 import Entypo from '@expo/vector-icons/Entypo';
 import 'react-native-get-random-values'
