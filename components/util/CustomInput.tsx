@@ -3,14 +3,15 @@ import React from 'react'
 
 interface CustomInputProps {
     onChange: (s: string) => void; // Die Funktion, die bei einem Tap aufgerufen wird
+    initialValue?: string;
     viewStyle?: ViewStyle;
     inputStyle?: TextStyle; 
 }
 
-const CustomInput = ({ viewStyle, inputStyle, onChange }: CustomInputProps) => {
+const CustomInput = ({ viewStyle, inputStyle, onChange, initialValue }: CustomInputProps) => {
     return (
       <View style={[styles.outerView, viewStyle]}>
-        <TextInput style={[styles.inputStyle, inputStyle]} onChangeText={onChange} />
+        <TextInput value={initialValue} style={[styles.inputStyle, inputStyle]} onChangeText={onChange} />
       </View>
     );
   };
