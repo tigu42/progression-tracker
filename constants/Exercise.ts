@@ -9,7 +9,7 @@ export interface TrainingSet {
 }
 
 export interface ExerciseTraining {
-    time: Date,
+    time: string,
     sets: TrainingSet[],
     maxPerfomance: number,
     id: string

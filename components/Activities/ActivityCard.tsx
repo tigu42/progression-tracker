@@ -9,7 +9,7 @@ interface ActivityCardProps {
   activity: Activity
 }
 
-const formattedDate: (d: Date) => string = (date: Date) => {
+const formattedDate: (d: string) => string = (date: string) => {
     const formatDate = new Intl.DateTimeFormat('de-DE', {
         weekday: 'long',    // Wochentag, z.B. "Montag"
         day: '2-digit',     // Tag als 2-stellige Zahl
@@ -18,7 +18,7 @@ const formattedDate: (d: Date) => string = (date: Date) => {
         hour: '2-digit',    // Stunde als 2-stellige Zahl
         minute: '2-digit',  // Minute als 2-stellige Zahl
         hour12: false       // 24-Stunden-Format
-      }).format(date);
+      }).format(new Date(date));
     return formatDate.toString();
 }
 

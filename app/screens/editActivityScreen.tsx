@@ -50,10 +50,10 @@ const EditActivityScreen = ({route}: any) => {
 
   const onAddButtonPress = () => {
     if (add) {
-      addExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date(), maxPerfomance: pr})
+      addExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date().toISOString(), maxPerfomance: pr})
     }
     else {
-      editExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date(), maxPerfomance: pr});
+      editExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date().toISOString(), maxPerfomance: pr});
     }
     navigation.goBack();
   }

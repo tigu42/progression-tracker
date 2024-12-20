@@ -1,8 +1,27 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { TestExercises } from "@/constants/TestExercises";
 import { Exercise, ExerciseTraining, PerformanceType, TrainingSet } from "@/constants/Exercise";
 import { Activity } from "@/constants/Activity";
 import { calculatePr } from "@/util/prCalculator";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const storeExercises = async (value : Exercise[]) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('exercises', jsonValue);
+    } catch (e) {
+      console.error(e)
+    }
+};
+
+const getExercises = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('exercises');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+        console.error(e)
+    }
+};
 
 const getPR = (exercise: Exercise): number => {
     return exercise.trainings.reduce((highest, training) => 
@@ -42,21 +61,33 @@ interface ExerciseContextType {
 const ExerciseContext = createContext<ExerciseContextType | undefined>(undefined);
 
 export const ExerciseProvider = ({ children }: { children: React.ReactNode }) => {
-    const [exercises, setExercises] = useState<Exercise[]>(TestExercises);
+    const [exercises, setExercises] = useState<Exercise[]>([]);
+    useEffect(() => {
+        getExercises().then((exercises: Exercise[]) => {
+            setExercises(exercises);
+        })
+    }, [])
+
+    const persistExercises = (exercises: Exercise[]) => {
+        setExercises(exercises);
+        storeExercises(exercises);
+    }
 
     const addExercise = (exercise: Exercise) => {
-        setExercises((prev) => [...prev, exercise]);
+        const updatedExercises = [...exercises, exercise];
+        persistExercises(updatedExercises);
     };
 
     const deleteExercise = (name: string) => {
-        setExercises((prev) => prev.filter((exercise) => exercise.name !== name));
+        const updatedExercises = exercises.filter((exercise) => exercise.name !== name)
+        persistExercises(updatedExercises);
     };
 
     const editExercise = (oldName: string, newExercise: Exercise) => {
         const updatedExercises = exercises.map(exercise =>
             exercise.name === oldName ? newExercise : exercise
         );
-        setExercises(recalculatePr(newExercise.name ,updatedExercises));
+        persistExercises(recalculatePr(newExercise.name ,updatedExercises));
     };
 
     const addExerciseTraining = (exerciseName: string, training: ExerciseTraining) => {
@@ -65,7 +96,7 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
                 ? { ...exercise, trainings: [...exercise.trainings, training] }
                 : exercise
         );
-        setExercises(updatedExercises);
+        persistExercises(updatedExercises);
     };
 
     const editExerciseTraining = (exerciseName: string, training: ExerciseTraining) => {
@@ -80,7 +111,7 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
             }
             return exercise;
         });
-        setExercises(updatedExercises);
+        persistExercises(updatedExercises);
     };
     
     

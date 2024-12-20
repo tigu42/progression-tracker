@@ -24,7 +24,7 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   
   const onTrainButtonPress = () => {
-    const activity: Activity = {training: {id: uuidv4.toString(), sets: [], time: new Date(), maxPerfomance: 0}, exerciseName: exercise.name, performanceType: exercise.performanceType}
+    const activity: Activity = {training: {id: uuidv4.toString(), sets: [], time: new Date().toISOString(), maxPerfomance: 0}, exerciseName: exercise.name, performanceType: exercise.performanceType}
 
 
     navigation.navigate("screens/editActivityScreen", {activity, add: true})

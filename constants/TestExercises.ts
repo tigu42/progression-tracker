@@ -5,7 +5,7 @@ export const TestExercises: Exercise[] = [
     name: "Bankdrücken",
     trainings: [
       {
-        time: new Date("2024-12-01T10:00:00"),
+        time: new Date("2024-12-01T10:00:00").toISOString(),
         sets: [
           { reps: 10, weight: 50 },
           { reps: 8, weight: 55 },
@@ -15,7 +15,7 @@ export const TestExercises: Exercise[] = [
         id: '14' // 1RM basierend auf 10x50kg
       },
       {
-        time: new Date("2024-12-08T10:30:00"),
+        time: new Date("2024-12-08T10:30:00").toISOString(),
         sets: [
           { reps: 12, weight: 45 },
           { reps: 8, weight: 50 },
@@ -31,7 +31,7 @@ export const TestExercises: Exercise[] = [
     name: "Klimmzüge breiter Griff neutral",
     trainings: [
       {
-        time: new Date("2024-12-02T09:00:00"),
+        time: new Date("2024-12-02T09:00:00").toISOString(),
         sets: [
           { reps: 8, weight: 0 },
           { reps: 7, weight: 0 },
@@ -43,7 +43,7 @@ export const TestExercises: Exercise[] = [
         id: '133' // PR: Höchste Wiederholungszahl im besten Satz
       },
       {
-        time: new Date("2024-12-09T08:45:00"),
+        time: new Date("2024-12-09T08:45:00").toISOString(),
         sets: [
           { reps: 10, weight: 0 },
           { reps: 7, weight: 0 },
@@ -59,7 +59,7 @@ export const TestExercises: Exercise[] = [
     name: "Kniebeugen",
     trainings: [
       {
-        time: new Date("2024-12-03T11:00:00"),
+        time: new Date("2024-12-03T11:00:00").toISOString(),
         sets: [
           { reps: 12, weight: 60 },
           { reps: 10, weight: 70 },
@@ -69,7 +69,7 @@ export const TestExercises: Exercise[] = [
         id: '13' // 1RM basierend auf 8x80kg
       },
       {
-        time: new Date("2024-12-10T10:15:00"),
+        time: new Date("2024-12-10T10:15:00").toISOString(),
         sets: [
           { reps: 10, weight: 65 },
           { reps: 8, weight: 75 },
@@ -85,7 +85,7 @@ export const TestExercises: Exercise[] = [
     name: "Bizeps Curls",
     trainings: [
       {
-        time: new Date("2024-12-04T14:00:00"),
+        time: new Date("2024-12-04T14:00:00").toISOString(),
         sets: [
           { reps: 15, weight: 10 },
           { reps: 12, weight: 12.5 },
@@ -95,7 +95,7 @@ export const TestExercises: Exercise[] = [
         id: '111' // 1RM basierend auf 10x15kg
       },
       {
-        time: new Date("2024-12-11T13:30:00"),
+        time: new Date("2024-12-11T13:30:00").toISOString(),
         sets: [
           { reps: 12, weight: 12 },
           { reps: 10, weight: 15 },
@@ -111,7 +111,7 @@ export const TestExercises: Exercise[] = [
     name: "Liegestütze",
     trainings: [
       {
-        time: new Date("2024-12-05T15:00:00"),
+        time: new Date("2024-12-05T15:00:00").toISOString(),
         sets: [
           { reps: 20, weight: 0 },
           { reps: 18, weight: 0 },
@@ -121,7 +121,7 @@ export const TestExercises: Exercise[] = [
         id: '11' // PR: Höchste Wiederholungszahl im besten Satz
       },
       {
-        time: new Date("2024-12-12T15:30:00"),
+        time: new Date("2024-12-12T15:30:00").toISOString(),
         sets: [
           { reps: 25, weight: 0 },
           { reps: 22, weight: 0 },
@@ -134,4 +134,3 @@ export const TestExercises: Exercise[] = [
     performanceType: PerformanceType.PR
   },
 ];
-

@@ -25,7 +25,7 @@ const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
   );
 
   // Sortiere die Aktivitäten nach Zeit (neueste zuerst)
-  return activities.sort((a, b) => b.training.time.getTime() - a.training.time.getTime());
+  return activities.sort((a, b) => new Date(b.training.time).getTime() - new Date(a.training.time).getTime());
 };
 
 const ActivityScreen = () => {
