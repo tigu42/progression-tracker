@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, ScrollView} from 'react-native'
 import React from 'react'
 import ActivityCard from '@/components/Activities/ActivityCard'
-import { TestExercises } from '@/constants/TestExercises'
 import Spacing from '@/components/util/Spacing'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Exercise } from '@/constants/Exercise'
@@ -47,7 +46,7 @@ const ActivityScreen = () => {
           ))}
         </ScrollView>
       </View>
-      <FloatingAddButton onPress={() => navigation.navigate("screens/editActivityScreen", {})}>
+      <FloatingAddButton onPress={() => navigation.navigate("screens/editActivityScreen", {add: true})}>
         <AntDesign name="plus" size={28} color="white" />
       </FloatingAddButton>
     </SafeAreaView>

@@ -3,7 +3,7 @@ import { PerformanceType, TrainingSet } from "@/constants/Exercise";
 const epley = (set: TrainingSet): number => {
     let w = set.weight;
     let r = set.reps;
-    if (r === 1) return 0;
+    if (r === 1) return set.weight;
     return w * (1 + r/30);
 }
 

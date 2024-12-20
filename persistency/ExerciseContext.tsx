@@ -1,7 +1,34 @@
 import { createContext, useContext, useState } from "react";
 import { TestExercises } from "@/constants/TestExercises";
-import { Exercise, ExerciseTraining, TrainingSet } from "@/constants/Exercise";
+import { Exercise, ExerciseTraining, PerformanceType, TrainingSet } from "@/constants/Exercise";
 import { Activity } from "@/constants/Activity";
+import { calculatePr } from "@/util/prCalculator";
+
+const getPR = (exercise: Exercise): number => {
+    return exercise.trainings.reduce((highest, training) => 
+      Math.max(highest, training.maxPerfomance), 0
+    );
+};
+
+const recalculatePr = (name: string, exercises : Exercise[]) : Exercise[] => {
+    const targetExercise = exercises.find(exercise => exercise.name === name);
+
+    // Falls kein Exercise mit dem Namen gefunden wurde, Rückgabe des Original-Arrays
+    if (!targetExercise) {
+        console.warn(`Exercise with name "${name}" not found.`);
+        return exercises;
+    }
+
+    const updatedExercise = {...targetExercise,
+                                trainings: targetExercise.trainings.map((t: ExerciseTraining) => ({...t, maxPerfomance: calculatePr(t.sets, targetExercise.performanceType)}))}
+
+
+    const updatedExercises = exercises.map(exercise =>
+        exercise.name === name ? updatedExercise : exercise
+    );
+
+    return updatedExercises;
+}
 
 interface ExerciseContextType {
     exercises: Exercise[];
@@ -26,42 +53,37 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     const editExercise = (oldName: string, newExercise: Exercise) => {
-        let toSave: Exercise[] = []
-        for (let i = 0; i < exercises.length; i++) {
-            const name = exercises[i].name;
-            if (name === oldName) {
-                toSave.push(newExercise);
-            }
-            else toSave.push(exercises[i]);
-        }
-        setExercises(toSave);
-    }
+        const updatedExercises = exercises.map(exercise =>
+            exercise.name === oldName ? newExercise : exercise
+        );
+        setExercises(recalculatePr(newExercise.name ,updatedExercises));
+    };
 
-    const addExerciseTraining = (exerciseName: string, training : ExerciseTraining) => {
-        let toSave: Exercise[] = []
-        for (let i = 0; i < exercises.length; i++) {
-            const name = exercises[i].name;
-            if (name === exerciseName) {
-                exercises[i].trainings.push(training)
-            }
-            toSave.push(exercises[i]);
-        }
-        setExercises(toSave)
-    }
+    const addExerciseTraining = (exerciseName: string, training: ExerciseTraining) => {
+        const updatedExercises = exercises.map(exercise => 
+            exercise.name === exerciseName
+                ? { ...exercise, trainings: [...exercise.trainings, training] }
+                : exercise
+        );
+        setExercises(updatedExercises);
+    };
 
-    const editExerciseTraining = (exerciseName: string, training : ExerciseTraining) => {
-        let toSave: Exercise[] = []
-        for (let i = 0; i < exercises.length; i++) {
-            const name = exercises[i].name;
-            if (name === exerciseName) {
-                for (let j = 0; j < exercises[i].trainings.length; j++) {
-                    if (exercises[i].trainings[j].id === training.id) exercises[i].trainings[j] = training;
-                }
+    const editExerciseTraining = (exerciseName: string, training: ExerciseTraining) => {
+        const updatedExercises = exercises.map(exercise => {
+            if (exercise.name === exerciseName) {
+                return {
+                    ...exercise,
+                    trainings: exercise.trainings.map(t =>
+                        t.id === training.id ? training : t
+                    ),
+                };
             }
-            toSave.push(exercises[i]);
-        }
-        setExercises(toSave)
-    }
+            return exercise;
+        });
+        setExercises(updatedExercises);
+    };
+    
+    
 
     return (
         <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise, editExercise, addExerciseTraining, editExerciseTraining }}>

@@ -3,7 +3,6 @@ import React from 'react'
 import { Activity } from '@/constants/Activity';
 import { Dropdown } from 'react-native-element-dropdown';
 import CustomDropdown from '@/components/util/CustomDropdown';
-import { TestExercises } from '@/constants/TestExercises';
 import { Exercise, PerformanceType, TrainingSet } from '@/constants/Exercise';
 import { useState } from 'react';
 import SetsList from '@/components/util/SetsList';
@@ -39,17 +38,18 @@ const EditActivityScreen = ({route}: any) => {
   
 
   const activity: Activity | null = route?.params?.activity || null;
+  const add: boolean = route.params.add;
   const dropDownData = createDropDownData(exercises);
 
   const trainingId : string = activity !== null ? activity.training.id : uuidv4();
-  const [exerciseName, setExerciseName] = useState(activity !== null ? activity.exerciseName : TestExercises[0].name);
+  const [exerciseName, setExerciseName] = useState(activity !== null ? activity.exerciseName : exercises[0].name);
   const [setsArray, setSetsArray] = useState(activity !== null ? activity.training.sets : [])
   const [pr, setPr] = useState(activity !== null ? calculatePr(activity.training.sets, activity.performanceType) : 0)
-  const performanceType: PerformanceType = performanceTypeFromName(exerciseName, TestExercises);
+  const performanceType: PerformanceType = performanceTypeFromName(exerciseName, exercises);
 
 
   const onAddButtonPress = () => {
-    if (activity === null) {
+    if (add) {
       addExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date(), maxPerfomance: pr})
     }
     else {
@@ -62,7 +62,7 @@ const EditActivityScreen = ({route}: any) => {
     <SafeAreaView style={styles.safeView}>
       <ScrollView style={styles.outerView} showsVerticalScrollIndicator={false}>
         <Text style={styles.chooseText}>Übung wählen</Text>
-        <CustomDropdown data={dropDownData} onSelect={(name: string) => {setExerciseName(name); onSetsChange(setsArray, performanceTypeFromName(name, TestExercises), setSetsArray, setPr)}} initialData={exerciseName}></CustomDropdown>
+        <CustomDropdown data={dropDownData} onSelect={(name: string) => {setExerciseName(name); onSetsChange(setsArray, performanceTypeFromName(name, exercises), setSetsArray, setPr)}} initialData={exerciseName}></CustomDropdown>
          {/* {setsArray.map((set, index) => (
                 <Text key={index}>{set.reps} x {set.weight}kg</Text>
         ))}  */}

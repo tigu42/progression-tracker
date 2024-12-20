@@ -27,7 +27,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
 
   const handlePress = (activity: Activity) => {
-    navigation.navigate("screens/editActivityScreen", {activity}); // Übergibt die Aktivität als Param
+    navigation.navigate("screens/editActivityScreen", {activity, add: false}); // Übergibt die Aktivität als Param
   };
 
     return (

@@ -7,6 +7,9 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Spacing from '../util/Spacing';
 import CustomButton from '../util/CustomButton';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
+import { Activity } from '@/constants/Activity';
+import 'react-native-get-random-values'
+import { v4 as uuidv4 } from 'uuid';
 const getPR = (exercise: Exercise): number => {
   return exercise.trainings.reduce((highest, training) => 
     Math.max(highest, training.maxPerfomance), 0
@@ -19,14 +22,20 @@ interface ExerciseCardProps {
 
 const ExerciseCard = ({exercise}: ExerciseCardProps) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
+  
+  const onTrainButtonPress = () => {
+    const activity: Activity = {training: {id: uuidv4.toString(), sets: [], time: new Date(), maxPerfomance: 0}, exerciseName: exercise.name, performanceType: exercise.performanceType}
 
+
+    navigation.navigate("screens/editActivityScreen", {activity, add: true})
+  }
 
   return (
     <View style={styles.outerView}>
       <View style={styles.leftView}>
         <Text style={styles.nameText}>{exercise.name}</Text>
         <View style={styles.trainButton}>
-          <CustomButton style={styles.trainButton} onPress={() => {console.log("train")}}>
+          <CustomButton style={styles.trainButton} onPress={onTrainButtonPress}>
             <View style={styles.trainButtonView}>
               <Text style={styles.trainButtonText}>Trainieren</Text>
             </View>
