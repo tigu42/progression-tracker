@@ -63,8 +63,13 @@ const ExerciseContext = createContext<ExerciseContextType | undefined>(undefined
 export const ExerciseProvider = ({ children }: { children: React.ReactNode }) => {
     const [exercises, setExercises] = useState<Exercise[]>([]);
     useEffect(() => {
-        getExercises().then((exercises: Exercise[]) => {
-            setExercises(exercises);
+        getExercises().then((exercises: Exercise[] | null) => {
+            if (exercises === null) {
+                setExercises([]);
+            }
+            else {
+                setExercises(exercises);
+            }
         })
     }, [])
 
