@@ -1,10 +1,10 @@
 import { View, Text, Dimensions, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
+import * as Svg from 'react-native-svg';
 import {
     LineChart,
   } from "react-native-chart-kit";
-import { Dataset } from 'react-native-chart-kit/dist/HelperTypes';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { createChartConfig, transformDataForLineChart } from '@/util/lineChartData';
 import { ExerciseTraining, PerformanceType } from '@/constants/Exercise';
 const formattedDate: (d: string) => string = (date: string) => {
