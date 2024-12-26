@@ -24,7 +24,7 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   
   const onTrainButtonPress = () => {
-    const activity: Activity = {training: {id: uuidv4.toString(), sets: [], time: new Date().toISOString(), maxPerfomance: 0}, exerciseName: exercise.name, performanceType: exercise.performanceType}
+    const activity: Activity = {training: {id: uuidv4(), sets: [], time: new Date().toISOString(), maxPerfomance: 0}, exerciseName: exercise.name, performanceType: exercise.performanceType}
 
 
     navigation.navigate("screens/editActivityScreen", {activity, add: true})
@@ -50,7 +50,9 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
         </View>
         <Spacing marginTop={20}></Spacing>
         <View style={styles.iconsView}>
-          <MaterialIcons name="timeline" size={28} color="black" />
+          <Pressable onPress={() => navigation.navigate("screens/progressScreen", {exercise})}>
+            <MaterialIcons name="timeline" size={28} color="black" />
+          </Pressable>
           <Pressable onPress={() => navigation.navigate("screens/editExerciseScreen", {exercise})}>
             <MaterialCommunityIcons name="pencil-box-outline" size={28} color="black" />
           </Pressable>

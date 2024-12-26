@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ExerciseScreen from '../screens/exerciseScreen';
 import EditExerciseScreen from '../screens/editExerciseScreen';
 import EditActivityScreen from '../screens/editActivityScreen';
+import ProgressScreen from '../screens/progressScreen';
 const Stack = createNativeStackNavigator();
 
 const ExerciseStackNavigator = () => {
@@ -23,6 +24,11 @@ const ExerciseStackNavigator = () => {
           name="screens/editActivityScreen" 
           component={EditActivityScreen} 
           options={{ title: 'Neues Training'}} // Titel der Bearbeitungsseite
+          />
+          <Stack.Screen 
+          name="screens/progressScreen" 
+          component={ProgressScreen} 
+          options={{ title: 'Verlauf'}} // Titel der Bearbeitungsseite
           />
         </Stack.Navigator>
       );

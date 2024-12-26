@@ -53,7 +53,9 @@ const EditActivityScreen = ({route}: any) => {
       addExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date().toISOString(), maxPerfomance: pr})
     }
     else {
-      editExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: new Date().toISOString(), maxPerfomance: pr});
+      if (activity !== null) {
+        editExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: activity.training.time, maxPerfomance: pr});
+      }
     }
     navigation.goBack();
   }
