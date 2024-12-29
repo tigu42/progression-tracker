@@ -6,7 +6,9 @@ import {
   } from "react-native-chart-kit";
 
 import { createChartConfig, transformDataForLineChart } from '@/util/lineChartData';
-import { ExerciseTraining, PerformanceType } from '@/constants/Exercise';
+import { Exercise, ExerciseTraining, PerformanceType } from '@/constants/Exercise';
+import { Activity } from '@/constants/Activity';
+import ActivityCard from '@/components/Activities/ActivityCard';
 const formattedDate: (d: string) => string = (date: string) => {
     const formatDate = new Intl.DateTimeFormat('de-DE', {
         weekday: 'long',    // Wochentag, z.B. "Montag"
@@ -26,8 +28,9 @@ const formattedDate: (d: string) => string = (date: string) => {
 const screenWidth = Dimensions.get("window").width;
 const padding = 15;
 const ProgressScreen = ({route} : any) => {
-  const exercise = route.params.exercise;
+  const exercise: Exercise = route.params.exercise;
   const trainings: ExerciseTraining[] = exercise.trainings;
+  //{exerciseName: exercise.name, performanceType: exercise.performanceType, training: }
   const data = transformDataForLineChart(trainings)
   return (
     <View style={styles.safeView}>
@@ -50,11 +53,14 @@ const ProgressScreen = ({route} : any) => {
             </View>
             <Text style={styles.allTrainingsText}>Alle Trainings</Text>
             <View>
-                {[...trainings].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()).map((training: ExerciseTraining, index: number) => (
-                    <View key={index} style={styles.trainingView}>
-                        <Text>{formattedDate(training.time)}</Text>
-                        <Text style={styles.trainingText}>{training.maxPerfomance}{exercise.performanceType === PerformanceType.PR ? ' Reps PR' : 'kg RM'}</Text>
-                    </View>
+                {trainings.map((training: ExerciseTraining, index: number) => (
+                    <ActivityCard
+                    key={index}
+                    activity={{exerciseName: exercise.name, performanceType: exercise.performanceType, training: training}}
+                    editable={false}
+                    >
+
+                    </ActivityCard>
                 ))}
             </View>
         </ScrollView>

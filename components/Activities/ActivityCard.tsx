@@ -6,7 +6,8 @@ import Spacing from '../util/Spacing';
 import { router, Router } from 'expo-router';
 import { useNavigation, ParamListBase,  NavigationProp } from '@react-navigation/native';
 interface ActivityCardProps {
-  activity: Activity
+  activity: Activity,
+  editable: boolean
 }
 
 const formattedDate: (d: string) => string = (date: string) => {
@@ -22,12 +23,14 @@ const formattedDate: (d: string) => string = (date: string) => {
     return formatDate.toString();
 }
 
-const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
+const ActivityCard: React.FC<ActivityCardProps> = ({ activity, editable }) => {
 
   const navigation: NavigationProp<ParamListBase> = useNavigation();
 
   const handlePress = (activity: Activity) => {
-    navigation.navigate("screens/editActivityScreen", {activity, add: false}); // Übergibt die Aktivität als Param
+    if (editable) {
+      navigation.navigate("screens/editActivityScreen", {activity, add: false}); // Übergibt die Aktivität als Param
+    }
   };
 
     return (

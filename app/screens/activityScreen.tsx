@@ -42,7 +42,7 @@ const ActivityScreen = () => {
       <View style={styles.cardsView}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {activities.map((activity, index) => (
-            <ActivityCard key={index} activity={activity} />
+            <ActivityCard key={index} activity={activity} editable={true}/>
           ))}
         </ScrollView>
       </View>
