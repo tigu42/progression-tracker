@@ -13,6 +13,7 @@ import { router } from 'expo-router'
 import { routeToScreen } from 'expo-router/build/useScreens'
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 import { useExercise } from '@/persistency/ExerciseContext'
+import ScrollableLayout from '@/components/util/ScrollableLayout'
 
 const mapExercisesToActivities = (exercises: Exercise[]): Activity[] => {
   // Transformiere die Exercises in Activities
@@ -32,24 +33,23 @@ const ActivityScreen = () => {
   const {exercises} = useExercise();
   
   const activities = mapExercisesToActivities(exercises); // Deine Logik für Aktivitäten
-    const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.customHeader}>
-        <Text style={styles.titleText}>Alle Trainings</Text>
-      </View>
+    <>
+    <ScrollableLayout title="Alle Trainings">
+      
 
       <View style={styles.cardsView}>
-        <ScrollView showsVerticalScrollIndicator={false}>
           {activities.map((activity, index) => (
             <ActivityCard key={index} activity={activity} editable={true}/>
           ))}
-        </ScrollView>
       </View>
-      <FloatingAddButton onPress={() => navigation.navigate("screens/editActivityScreen", {add: true})}>
-        <AntDesign name="plus" size={28} color="white" />
-      </FloatingAddButton>
-    </SafeAreaView>
+    </ScrollableLayout>
+
+    <FloatingAddButton onPress={() => navigation.navigate("screens/editActivityScreen", {add: true})}>
+      <AntDesign name="plus" size={28} color="white" />
+    </FloatingAddButton>
+    </>
   );
 };
 
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   },
   cardsView: {
     flex: 1, // Lässt die ScrollView den verbleibenden Platz einnehmen
-    paddingHorizontal: 20,
   },
   floatingButton: {
     position: 'absolute', // Fixiert den Button

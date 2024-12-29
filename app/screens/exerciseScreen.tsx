@@ -8,6 +8,7 @@ import { Exercise } from '@/constants/Exercise'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 import { useExercise } from '@/persistency/ExerciseContext'
+import ScrollableLayout from '@/components/util/ScrollableLayout'
 
 
 
@@ -17,24 +18,23 @@ const ExerciseScreen = () => {
   
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.customHeader}>
-        <Text style={styles.titleText}>Alle Übungen</Text>
-      </View>
-      <View style={styles.cardsView}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {exercises.map((exercise, index) => (
-            <ExerciseCard key={index} exercise={exercise} />
-          ))}
-        </ScrollView>
-      </View>
+    <>
+      <ScrollableLayout title="Alle Übungen" bottomSpace={60}>
+        <View style={styles.cardsView}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {exercises.map((exercise, index) => (
+              <ExerciseCard key={index} exercise={exercise} />
+            ))}
+          </ScrollView>
+        </View>
+      </ScrollableLayout>
       <FloatingAddButton onPress={() => navigation.navigate("screens/editExerciseScreen", {})}>
         <View style={styles.buttonView}>
           <Text style={styles.buttonText}>Neue Übung</Text>
           <AntDesign name="plus" size={28} color="white" />
         </View>
       </FloatingAddButton>
-    </SafeAreaView>
+    </>
   );
 };
 
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   },
   cardsView: {
     flex: 1, // Lässt die ScrollView den verbleibenden Platz einnehmen
-    paddingHorizontal: 20,
   },
   floatingButton: {
     position: 'absolute', // Fixiert den Button
