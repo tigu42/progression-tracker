@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import React, { act } from 'react'
 import { Activity } from '@/constants/Activity';
 import { Dropdown } from 'react-native-element-dropdown';
 import CustomDropdown from '@/components/util/CustomDropdown';
@@ -33,7 +33,7 @@ const performanceTypeFromName = (exerciseName: string, exercises: Exercise[]): P
 
 const EditActivityScreen = ({route}: any) => {
 
-  const {addExerciseTraining, editExerciseTraining, exercises} = useExercise();
+  const {addExerciseTraining, editExerciseTraining, exercises, deleteExerciseTraining} = useExercise();
   const navigation = useNavigation();
   
 
@@ -60,6 +60,16 @@ const EditActivityScreen = ({route}: any) => {
     navigation.goBack();
   }
 
+  const onDeleteButtonPress = () => {
+    if (!add) {
+      if (activity !== null) {
+        deleteExerciseTraining(exerciseName, {id: trainingId, sets: setsArray, time: activity.training.time, maxPerfomance: pr})
+      }
+    }
+    navigation.goBack();
+
+  }
+
   return (
     <SafeAreaView style={styles.safeView}>
       <ScrollView style={styles.outerView} showsVerticalScrollIndicator={false}>
@@ -76,6 +86,9 @@ const EditActivityScreen = ({route}: any) => {
       <View style={styles.footerView}>
         <Text style={styles.prText}>{pr}{performanceType === PerformanceType.PR ? ' Reps PR' : 'kg 1RM'}</Text>
         <View style={styles.buttonView}>
+          <CustomButton onPress={onDeleteButtonPress} style={styles.deleteActivityButton}>
+            <Feather name="trash" size={24} color="white" />
+          </CustomButton>
           <CustomButton 
             onPress={() => { 
               const newSet = { reps: 0, weight: 0 };
@@ -146,6 +159,10 @@ const styles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'row',
       marginVertical: 10
+    },
+    deleteActivityButton: {
+      borderRadius: 10,
+      marginRight: 10
     }
 })
 

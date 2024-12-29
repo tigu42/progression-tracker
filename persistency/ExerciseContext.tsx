@@ -56,6 +56,7 @@ interface ExerciseContextType {
     editExercise: (name: string, newExercise: Exercise) => void;
     addExerciseTraining: (exerciseName: string, training : ExerciseTraining) => void;
     editExerciseTraining: (exerciseName: string, training : ExerciseTraining) => void;
+    deleteExerciseTraining: (exerciseName: string, training : ExerciseTraining) => void;
 }
 
 const ExerciseContext = createContext<ExerciseContextType | undefined>(undefined);
@@ -88,6 +89,7 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
         persistExercises(updatedExercises);
     };
 
+
     const editExercise = (oldName: string, newExercise: Exercise) => {
         const updatedExercises = exercises.map(exercise =>
             exercise.name === oldName ? newExercise : exercise
@@ -118,11 +120,22 @@ export const ExerciseProvider = ({ children }: { children: React.ReactNode }) =>
         });
         persistExercises(updatedExercises);
     };
-    
-    
+
+    const deleteExerciseTraining = (exerciseName: string, training: ExerciseTraining) => {
+        const updatedExercises = exercises.map(exercise => {
+            if (exercise.name === exerciseName) {
+                return {
+                    ...exercise,
+                    trainings: exercise.trainings.filter((t: ExerciseTraining) => t.id !== training.id)
+                }
+            }
+            return exercise;
+        })
+        persistExercises(updatedExercises);
+    }
 
     return (
-        <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise, editExercise, addExerciseTraining, editExerciseTraining }}>
+        <ExerciseContext.Provider value={{ exercises, addExercise, deleteExercise, editExercise, addExerciseTraining, editExerciseTraining, deleteExerciseTraining }}>
             {children}
         </ExerciseContext.Provider>
     );
