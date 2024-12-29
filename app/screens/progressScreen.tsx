@@ -30,7 +30,7 @@ const padding = 15;
 const ProgressScreen = ({route} : any) => {
   const exercise: Exercise = route.params.exercise;
   const trainings: ExerciseTraining[] = exercise.trainings;
-  //{exerciseName: exercise.name, performanceType: exercise.performanceType, training: }
+  const reverseTrainings = [...trainings].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
   const data = transformDataForLineChart(trainings)
   return (
     <View style={styles.safeView}>
@@ -53,7 +53,7 @@ const ProgressScreen = ({route} : any) => {
             </View>
             <Text style={styles.allTrainingsText}>Alle Trainings</Text>
             <View>
-                {trainings.map((training: ExerciseTraining, index: number) => (
+                {reverseTrainings.map((training: ExerciseTraining, index: number) => (
                     <ActivityCard
                     key={index}
                     activity={{exerciseName: exercise.name, performanceType: exercise.performanceType, training: training}}
